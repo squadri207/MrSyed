@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Ionic Bonding - Bohr Model Simulation&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #e0f2fe; /* Light sky blue background */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>user-select: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.concord-sidebar {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 2px solid #bae6fd;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f8fafc;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.concord-button {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(to bottom, #ffffff 0%, #f0f9ff 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #7dd3fc;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #0369a1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 2px 4px rgba(0,0,0,0.05);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.1s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.concord-button:active {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(1px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f0f9ff;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.concord-button:disabled { opacity: 0.5; cursor: not-allowed; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>select {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 6px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #7dd3fc;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #0369a1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.app-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 1100px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 90vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #bae6fd;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 30px rgba(0,0,0,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>canvas {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: grab;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>canvas:active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: grabbing;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="app-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Top Bar --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-[#0284c7] text-white px-6 py-3 text-lg font-semibold flex justify-between shrink-0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span&gt;Bohr Model: Ionic Bonding Simulation&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="opacity-80 text-sm"&gt;Interactive Science Lab&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex flex-grow overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Main Simulation Area --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="relative flex-grow flex flex-col min-w-0 bg-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex-grow relative border-b border-sky-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;canvas id="canvas" class="absolute inset-0 w-full h-full"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Controls Overlay --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="shrink-0 flex gap-6 items-center p-4 bg-slate-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label class="text-sm font-bold text-slate-700 whitespace-nowrap"&gt;Compound:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;select id="compoundSelect"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="NaCl"&gt;NaCl (Table Salt)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="MgCl2"&gt;MgCl₂ (Magnesium Chloride)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="LiCl"&gt;LiCl (Lithium Chloride)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="MgO"&gt;MgO (Magnesium Oxide)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Li2O"&gt;Li₂O (Lithium Oxide)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="CaCl2"&gt;CaCl₂ (Calcium Chloride)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="MgF2"&gt;MgF₂ (Magnesium Fluoride)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button id="ionizeBtn" class="concord-button"&gt;Ionize&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button id="resetBtn" class="concord-button text-slate-500"&gt;Reset&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Sidebar --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="concord-sidebar w-72 p-6 flex flex-col gap-6 shrink-0 overflow-y-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-xs font-bold uppercase text-slate-400 mb-2 tracking-wider"&gt;Simulation State&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="stateLabel" class="text-sm font-bold text-sky-700 bg-white p-3 border border-sky-200 rounded-lg text-center shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Neutral Atoms</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-sm text-slate-700 bg-white p-5 border border-slate-200 rounded-xl leading-relaxed shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 class="font-bold text-slate-900 mb-3 border-b pb-1"&gt;How to play:&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;ul class="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="flex items-start gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="bg-sky-100 text-sky-700 w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0 mt-0.5 font-bold"&gt;1&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;&lt;b&gt;Drag&lt;/b&gt; atoms to move them around the screen.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="flex items-start gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="bg-sky-100 text-sky-700 w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0 mt-0.5 font-bold"&gt;2&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;Click &lt;b&gt;Ionize&lt;/b&gt; to transfer electrons from metal to non-metal.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="flex items-start gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="bg-sky-100 text-sky-700 w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0 mt-0.5 font-bold"&gt;3&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;Watch as the newly formed ions &lt;b&gt;attract and bond&lt;/b&gt;!&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const canvas = document.getElementById('canvas');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ctx = canvas.getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const compoundSelect = document.getElementById('compoundSelect');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ionizeBtn = document.getElementById('ionizeBtn');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const resetBtn = document.getElementById('resetBtn');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const stateLabel = document.getElementById('stateLabel');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let atoms = [];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let isIonizing = false;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let transferComplete = false;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let draggedAtom = null;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let mousePos = { x: 0, y: 0 };</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ELEMENT_DATA = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Li': { shells: [2, 1], color: '#f0abfc', symbol: 'Li' },<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Na': { shells: [2, 8, 1], color: '#818cf8', symbol: 'Na' },<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Mg': { shells: [2, 8, 2], color: '#38bdf8', symbol: 'Mg' },<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Ca': { shells: [2, 8, 8, 2], color: '#60a5fa', symbol: 'Ca' },<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'F':<span class="Apple-converted-space">  </span>{ shells: [2, 7], color: '#4ade80', symbol: 'F' }, <span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Cl': { shells: [2, 8, 7], color: '#a3e635', symbol: 'Cl' },<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'O':<span class="Apple-converted-space">  </span>{ shells: [2, 6], color: '#fb923c', symbol: 'O' }<span class="Apple-converted-space">   </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const COMPOUNDS = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'NaCl':<span class="Apple-converted-space">  </span>{ metals: [{type: 'Na', x: 0.35, y: 0.5}], nonmetals: [{type: 'Cl', x: 0.65, y: 0.5}] },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'MgCl2': { metals: [{type: 'Mg', x: 0.5, y: 0.5}], nonmetals: [{type: 'Cl', x: 0.3, y: 0.3}, {type: 'Cl', x: 0.7, y: 0.7}] },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'LiCl':<span class="Apple-converted-space">  </span>{ metals: [{type: 'Li', x: 0.35, y: 0.5}], nonmetals: [{type: 'Cl', x: 0.65, y: 0.5}] },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'MgO': <span class="Apple-converted-space">  </span>{ metals: [{type: 'Mg', x: 0.35, y: 0.5}], nonmetals: [{type: 'O', x: 0.65, y: 0.5}] },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Li2O':<span class="Apple-converted-space">  </span>{ metals: [{type: 'Li', x: 0.3, y: 0.3}, {type: 'Li', x: 0.3, y: 0.7}], nonmetals: [{type: 'O', x: 0.7, y: 0.5}] },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'CaCl2': { metals: [{type: 'Ca', x: 0.5, y: 0.5}], nonmetals: [{type: 'Cl', x: 0.3, y: 0.3}, {type: 'Cl', x: 0.7, y: 0.7}] },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'MgF2':<span class="Apple-converted-space">  </span>{ metals: [{type: 'Mg', x: 0.5, y: 0.5}], nonmetals: [{type: 'F', x: 0.3, y: 0.3}, {type: 'F', x: 0.7, y: 0.7}] }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>class Electron {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>constructor(atom, shellIndex, angle) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.atom = atom;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.shellIndex = shellIndex;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.angle = angle;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.isTransferring = false;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.targetAtom = null;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.targetAngle = 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.progress = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>getPosition() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const shellRadius = this.shellIndex * 22 + 18;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (this.isTransferring &amp;&amp; this.targetAtom) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const startX = this.atom.x + Math.cos(this.angle) * shellRadius;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const startY = this.atom.y + Math.sin(this.angle) * shellRadius;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const targetShellRadius = this.targetAtom.currentShells.length * 22 + 18;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const endX = this.targetAtom.x + Math.cos(this.targetAngle) * targetShellRadius;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const endY = this.targetAtom.y + Math.sin(this.targetAngle) * targetShellRadius;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>x: startX + (endX - startX) * this.progress,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>y: startY + (endY - startY) * this.progress</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>};</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>x: this.atom.x + Math.cos(this.angle) * shellRadius,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>y: this.atom.y + Math.sin(this.angle) * shellRadius</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>draw() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const pos = this.getPosition();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.beginPath();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.arc(pos.x, pos.y, 4, 0, Math.PI * 2);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.fillStyle = '#facc15';<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.fill();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.strokeStyle = '#854d0e';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.lineWidth = 1;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.stroke();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>class Atom {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>constructor(relX, relY, type, isMetal) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.relX = relX;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.relY = relY;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.x = 0; this.y = 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.vx = 0; this.vy = 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.type = type;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.isMetal = isMetal;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.data = ELEMENT_DATA[type];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.isIon = false;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.currentShells = [...this.data.shells];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.electrons = [];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.initElectrons();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>initElectrons() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.currentShells.forEach((count, sIdx) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>for (let i = 0; i &lt; count; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const angle = (i / count) * Math.PI * 2 - Math.PI/2;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>this.electrons.push(new Electron(this, sIdx + 1, angle));</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>rebalanceElectrons() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const valenceShellIdx = this.currentShells.length;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const valenceElectrons = this.electrons.filter(e =&gt; e.shellIndex === valenceShellIdx);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>valenceElectrons.forEach((e, i) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>e.angle = (i / valenceElectrons.length) * Math.PI * 2 - Math.PI/2;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>getRadius() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const shellCount = (this.isIon &amp;&amp; this.isMetal) ? this.currentShells.length - 1 : this.currentShells.length;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return shellCount * 22 + 18;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>draw() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (draggedAtom !== this) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>this.x = canvas.width * this.relX;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>this.y = canvas.height * this.relY;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const shellCount = (this.isIon &amp;&amp; this.isMetal) ? this.currentShells.length - 1 : this.currentShells.length;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.hitRadius = this.getRadius();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Shells</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.setLineDash([5, 5]);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.strokeStyle = draggedAtom === this ? '#0ea5e9' : '#e2e8f0';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.lineWidth = 1.5;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>for (let i = 1; i &lt;= shellCount; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ctx.beginPath();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ctx.arc(this.x, this.y, i * 22 + 18, 0, Math.PI * 2);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ctx.stroke();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.setLineDash([]);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Nucleus</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.beginPath();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const coreRad = (this.isIon &amp;&amp; this.isMetal) ? 18 : 22;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.arc(this.x, this.y, coreRad, 0, Math.PI * 2);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.fillStyle = this.data.color;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.fill();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.strokeStyle = '#334155';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.lineWidth = 2;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.stroke();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Text (Symbol and Charge as Superscript)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.fillStyle = '#1e293b';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.textAlign = 'center';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Draw Symbol</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.font = 'bold 16px Arial';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const metrics = ctx.measureText(this.type);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx.fillText(this.type, this.x - (this.isIon ? 5 : 0), this.y + 6);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Draw Charge as Superscript if Ion</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (this.isIon) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const valenceCount = this.data.shells[this.data.shells.length - 1];</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>let chargeText = "";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (this.isMetal) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>chargeText = valenceCount &gt; 1 ? valenceCount + "+" : "+";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const needed = 8 - valenceCount;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>chargeText = needed &gt; 1 ? needed + "-" : "-";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ctx.font = 'bold 11px Arial';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ctx.textAlign = 'left';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ctx.fillText(chargeText, this.x + (metrics.width/2) - 3, this.y - 2);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.electrons.forEach(e =&gt; e.draw());</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function setupCompound() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>atoms = [];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transferComplete = false;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const comp = COMPOUNDS[compoundSelect.value];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>comp.metals.forEach(m =&gt; atoms.push(new Atom(m.x, m.y, m.type, true)));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>comp.nonmetals.forEach(nm =&gt; atoms.push(new Atom(nm.x, nm.y, nm.type, false)));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>isIonizing = false;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>ionizeBtn.disabled = false;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stateLabel.innerText = "Neutral Atoms";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stateLabel.className = "text-sm font-bold text-sky-700 bg-white p-3 border border-sky-200 rounded-lg text-center shadow-sm";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function triggerIonization() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (isIonizing) return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>isIonizing = true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>ionizeBtn.disabled = true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stateLabel.innerText = "Transferring Electrons...";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stateLabel.className = "text-sm font-bold text-orange-600 bg-white p-3 border border-orange-200 rounded-lg text-center shadow-sm";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const metals = atoms.filter(a =&gt; a.isMetal);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const nonmetals = atoms.filter(a =&gt; !a.isMetal);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let eIdx = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>metals.forEach(m =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const valenceElectrons = m.electrons.filter(e =&gt; e.shellIndex === m.currentShells.length);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>valenceElectrons.forEach((ve) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ve.isTransferring = true;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const target = nonmetals[eIdx % nonmetals.length];</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ve.targetAtom = target;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ve.targetAngle = Math.random() * Math.PI * 2;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>eIdx++;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function handleDragging() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (draggedAtom) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>draggedAtom.x = mousePos.x;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>draggedAtom.y = mousePos.y;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>draggedAtom.relX = draggedAtom.x / canvas.width;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>draggedAtom.relY = draggedAtom.y / canvas.height;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>draggedAtom.vx = 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>draggedAtom.vy = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function loop() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>ctx.clearRect(0, 0, canvas.width, canvas.height);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>handleDragging();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const step = 0.015;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let finishedTransfer = true;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>atoms.forEach(a =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>a.draw();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>a.electrons.forEach(e =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (e.isTransferring) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>finishedTransfer = false;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>e.progress += step;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (e.progress &gt;= 1) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>e.progress = 1;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>e.isTransferring = false;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>e.atom.electrons = e.atom.electrons.filter(el =&gt; el !== e);</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>e.atom = e.targetAtom;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>e.shellIndex = e.targetAtom.currentShells.length;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>e.targetAtom.electrons.push(e);</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>e.targetAtom = null;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>e.atom.rebalanceElectrons();</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (isIonizing &amp;&amp; finishedTransfer) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!transferComplete) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>transferComplete = true;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>atoms.forEach(a =&gt; { a.isIon = true; a.rebalanceElectrons(); });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const attractionForce = 0.0012;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const damping = 0.8;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>let totalMovement = 0;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>for (let i = 0; i &lt; atoms.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>for (let j = i + 1; j &lt; atoms.length; j++) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const a = atoms[i];</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const b = atoms[j];</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const dx = b.x - a.x;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const dy = b.y - a.y;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const dist = Math.sqrt(dx * dx + dy * dy);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const minDist = a.getRadius() + b.getRadius();</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const margin = 2;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (a.isMetal !== b.isMetal) {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>if (dist &gt; minDist + margin &amp;&amp; (draggedAtom !== a &amp;&amp; draggedAtom !== b)) {</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>const fx = (dx / dist) * attractionForce;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>const fy = (dy / dist) * attractionForce;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>a.vx += fx; a.vy += fy;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>b.vx -= fx; b.vy -= fy;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (dist &lt; minDist) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>const overlap = minDist - dist;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>const nx = dx / (dist || 1);</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>const ny = dy / (dist || 1);</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>if (draggedAtom === a) {</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>b.relX += (nx * overlap) / canvas.width;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>b.relY += (ny * overlap) / canvas.height;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>} else if (draggedAtom === b) {</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>a.relX -= (nx * overlap) / canvas.width;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>a.relY -= (ny * overlap) / canvas.height;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>a.relX -= (nx * overlap * 0.5) / canvas.width;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>a.relY -= (ny * overlap * 0.5) / canvas.height;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>b.relX += (nx * overlap * 0.5) / canvas.width;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>b.relY += (ny * overlap * 0.5) / canvas.height;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>a.vx *= 0.4; a.vy *= 0.4;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>b.vx *= 0.4; b.vy *= 0.4;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>atoms.forEach(a =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (draggedAtom !== a) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>a.relX += a.vx;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>a.relY += a.vy;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>a.vx *= damping;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>a.vy *= damping;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>totalMovement += Math.abs(a.vx) + Math.abs(a.vy);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (draggedAtom) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>stateLabel.innerText = "Interacting...";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>stateLabel.className = "text-sm font-bold text-purple-600 bg-white p-3 border border-purple-200 rounded-lg text-center shadow-sm";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (totalMovement &lt; 0.00004) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>stateLabel.innerText = "Stable Ionic Bond";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>stateLabel.className = "text-sm font-bold text-green-600 bg-white p-3 border border-green-200 rounded-lg text-center shadow-sm";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>stateLabel.innerText = "Attracting Ions...";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>stateLabel.className = "text-sm font-bold text-orange-500 bg-white p-3 border border-orange-100 rounded-lg text-center shadow-sm";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>requestAnimationFrame(loop);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>canvas.addEventListener('mousedown', (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const rect = canvas.getBoundingClientRect();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const scaleX = canvas.width / rect.width;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const scaleY = canvas.height / rect.height;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const mx = (e.clientX - rect.left) * scaleX;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const my = (e.clientY - rect.top) * scaleY;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (let i = atoms.length - 1; i &gt;= 0; i--) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const a = atoms[i];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const dx = mx - a.x;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const dy = my - a.y;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (Math.sqrt(dx * dx + dy * dy) &lt; a.hitRadius) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>draggedAtom = a;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.addEventListener('mousemove', (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const rect = canvas.getBoundingClientRect();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const scaleX = canvas.width / rect.width;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const scaleY = canvas.height / rect.height;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mousePos.x = (e.clientX - rect.left) * scaleX;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mousePos.y = (e.clientY - rect.top) * scaleY;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.addEventListener('mouseup', () =&gt; draggedAtom = null);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function resize() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const rect = canvas.getBoundingClientRect();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>canvas.width = rect.width;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>canvas.height = rect.height;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.addEventListener('resize', resize);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>compoundSelect.onchange = setupCompound;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ionizeBtn.onclick = triggerIonization;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>resetBtn.onclick = setupCompound;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>resize();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setupCompound();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>loop();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
