@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ionic Bonding - Bohr Model Simulation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #e0f2fe;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+            overflow: hidden; 
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .concord-sidebar {
+            border-left: 1px solid #bae6fd;
+            background-color: #f8fafc;
+        }
+        .concord-button {
+            background: linear-gradient(to bottom, #ffffff 0%, #f0f9ff 100%);
+            border: 1px solid #7dd3fc;
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #0369a1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            white-space: nowrap;
+            transition: all 0.1s;
+        }
+        .concord-button:active { 
+            transform: translateY(1px);
+            box-shadow: none;
+            background: #f0f9ff;
+        }
+        .concord-button:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        select {
+            padding: 6px 10px;
+            border: 1px solid #7dd3fc;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            color: #0369a1;
+        }
+
+        .app-container {
+            width: 95vw;
+            max-width: 1100px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        canvas {
+            cursor: grab;
+        }
+        canvas:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Top Bar -->
+        <div class="bg-[#0284c7] text-white px-6 py-3 text-lg font-semibold flex justify-between shrink-0">
+            <span>Bohr Model: Ionic Bonding Simulation</span>
+            <span class="opacity-80 text-sm">Interactive Science Lab</span>
+        </div>
+
+        <div class="flex flex-grow overflow-hidden">
+            <!-- Main Simulation Area -->
+            <div class="relative flex-grow flex flex-col min-w-0 bg-white">
+                <div class="flex-grow relative border-b border-sky-100">
+                    <canvas id="canvas" class="absolute inset-0 w-full h-full"></canvas>
+                </div>
+                
+                <!-- Controls Overlay -->
+                <div class="shrink-0 flex gap-6 items-center p-4 bg-slate-50">
+                    <div class="flex items-center gap-3">
+                        <label class="text-sm font-bold text-slate-700 whitespace-nowrap">Compound:</label>
+                        <select id="compoundSelect">
+                            <option value="NaCl">NaCl (Table Salt)</option>
+                            <option value="MgCl2">MgCl₂ (Magnesium Chloride)</option>
+                            <option value="LiCl">LiCl (Lithium Chloride)</option>
+                            <option value="MgO">MgO (Magnesium Oxide)</option>
+                            <option value="Li2O">Li₂O (Lithium Oxide)</option>
+                            <option value="CaCl2">CaCl₂ (Calcium Chloride)</option>
+                            <option value="MgF2">MgF₂ (Magnesium Fluoride)</option>
+                        </select>
+                    </div>
+                    <button id="ionizeBtn" class="concord-button">Ionize</button>
+                    <button id="resetBtn" class="concord-button text-slate-500">Reset</button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="concord-sidebar w-72 p-6 flex flex-col gap-6 shrink-0 overflow-y-auto">
+                <div>
+                    <h3 class="text-xs font-bold uppercase text-slate-400 mb-2 tracking-wider">Simulation State</h3>
+                    <div id="stateLabel" class="text-sm font-bold text-sky-700 bg-white p-3 border border-sky-200 rounded-lg text-center shadow-sm">
+                        Neutral Atoms
+                    </div>
+                </div>
+
+                <div class="text-sm text-slate-700 bg-white p-5 border border-slate-200 rounded-xl leading-relaxed shadow-sm">
+                    <h4 class="font-bold text-slate-900 mb-3 border-b pb-1">How to play:</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="bg-sky-100 text-sky-700 w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0 mt-0.5 font-bold">1</span>
+                            <span><b>Drag</b> atoms to move them around the screen.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-sky-100 text-sky-700 w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0 mt-0.5 font-bold">2</span>
+                            <span>Click <b>Ionize</b> to transfer electrons from metal to non-metal.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-sky-100 text-sky-700 w-5 h-5 rounded-full flex items-center justify-center text-[10px] shrink-0 mt-0.5 font-bold">3</span>
+                            <span>Watch as the newly formed ions <b>attract and bond</b>!</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const compoundSelect = document.getElementById('compoundSelect');
+        const ionizeBtn = document.getElementById('ionizeBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const stateLabel = document.getElementById('stateLabel');
+
+        let atoms = [];
+        let isIonizing = false;
+        let transferComplete = false;
+        let draggedAtom = null;
+        let mousePos = { x: 0, y: 0 };
+
+        const ELEMENT_DATA = {
+            'Li': { shells: [2, 1], color: '#f0abfc', symbol: 'Li' }, 
+            'Na': { shells: [2, 8, 1], color: '#818cf8', symbol: 'Na' }, 
+            'Mg': { shells: [2, 8, 2], color: '#38bdf8', symbol: 'Mg' }, 
+            'Ca': { shells: [2, 8, 8, 2], color: '#60a5fa', symbol: 'Ca' }, 
+            'F':  { shells: [2, 7], color: '#4ade80', symbol: 'F' },  
+            'Cl': { shells: [2, 8, 7], color: '#a3e635', symbol: 'Cl' }, 
+            'O':  { shells: [2, 6], color: '#fb923c', symbol: 'O' }   
+        };
+
+        const COMPOUNDS = {
+            'NaCl':  { metals: [{type: 'Na', x: 0.35, y: 0.5}], nonmetals: [{type: 'Cl', x: 0.65, y: 0.5}] },
+            'MgCl2': { metals: [{type: 'Mg', x: 0.5, y: 0.5}], nonmetals: [{type: 'Cl', x: 0.3, y: 0.3}, {type: 'Cl', x: 0.7, y: 0.7}] },
+            'LiCl':  { metals: [{type: 'Li', x: 0.35, y: 0.5}], nonmetals: [{type: 'Cl', x: 0.65, y: 0.5}] },
+            'MgO':   { metals: [{type: 'Mg', x: 0.35, y: 0.5}], nonmetals: [{type: 'O', x: 0.65, y: 0.5}] },
+            'Li2O':  { metals: [{type: 'Li', x: 0.3, y: 0.3}, {type: 'Li', x: 0.3, y: 0.7}], nonmetals: [{type: 'O', x: 0.7, y: 0.5}] },
+            'CaCl2': { metals: [{type: 'Ca', x: 0.5, y: 0.5}], nonmetals: [{type: 'Cl', x: 0.3, y: 0.3}, {type: 'Cl', x: 0.7, y: 0.7}] },
+            'MgF2':  { metals: [{type: 'Mg', x: 0.5, y: 0.5}], nonmetals: [{type: 'F', x: 0.3, y: 0.3}, {type: 'F', x: 0.7, y: 0.7}] }
+        };
+
+        class Electron {
+            constructor(atom, shellIndex, angle) {
+                this.atom = atom;
+                this.shellIndex = shellIndex;
+                this.angle = angle;
+                this.isTransferring = false;
+                this.targetAtom = null;
+                this.targetAngle = 0;
+                this.progress = 0;
+            }
+
+            getPosition() {
+                const shellRadius = this.shellIndex * 22 + 18;
+                if (this.isTransferring && this.targetAtom) {
+                    const startX = this.atom.x + Math.cos(this.angle) * shellRadius;
+                    const startY = this.atom.y + Math.sin(this.angle) * shellRadius;
+                    const targetShellRadius = this.targetAtom.currentShells.length * 22 + 18;
+                    const endX = this.targetAtom.x + Math.cos(this.targetAngle) * targetShellRadius;
+                    const endY = this.targetAtom.y + Math.sin(this.targetAngle) * targetShellRadius;
+                    return {
+                        x: startX + (endX - startX) * this.progress,
+                        y: startY + (endY - startY) * this.progress
+                    };
+                }
+                return {
+                    x: this.atom.x + Math.cos(this.angle) * shellRadius,
+                    y: this.atom.y + Math.sin(this.angle) * shellRadius
+                };
+            }
+
+            draw() {
+                const pos = this.getPosition();
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#facc15'; 
+                ctx.fill();
+                ctx.strokeStyle = '#854d0e';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        class Atom {
+            constructor(relX, relY, type, isMetal) {
+                this.relX = relX;
+                this.relY = relY;
+                this.x = 0; this.y = 0;
+                this.vx = 0; this.vy = 0;
+                this.type = type;
+                this.isMetal = isMetal;
+                this.data = ELEMENT_DATA[type];
+                this.isIon = false;
+                this.currentShells = [...this.data.shells];
+                this.electrons = [];
+                this.initElectrons();
+            }
+
+            initElectrons() {
+                this.currentShells.forEach((count, sIdx) => {
+                    for (let i = 0; i < count; i++) {
+                        const angle = (i / count) * Math.PI * 2 - Math.PI/2;
+                        this.electrons.push(new Electron(this, sIdx + 1, angle));
+                    }
+                });
+            }
+
+            rebalanceElectrons() {
+                const valenceShellIdx = this.currentShells.length;
+                const valenceElectrons = this.electrons.filter(e => e.shellIndex === valenceShellIdx);
+                valenceElectrons.forEach((e, i) => {
+                    e.angle = (i / valenceElectrons.length) * Math.PI * 2 - Math.PI/2;
+                });
+            }
+
+            getRadius() {
+                const shellCount = (this.isIon && this.isMetal) ? this.currentShells.length - 1 : this.currentShells.length;
+                return shellCount * 22 + 18;
+            }
+
+            draw() {
+                if (draggedAtom !== this) {
+                    this.x = canvas.width * this.relX;
+                    this.y = canvas.height * this.relY;
+                }
+                const shellCount = (this.isIon && this.isMetal) ? this.currentShells.length - 1 : this.currentShells.length;
+                this.hitRadius = this.getRadius();
+
+                ctx.setLineDash([5, 5]);
+                ctx.strokeStyle = draggedAtom === this ? '#0ea5e9' : '#e2e8f0';
+                ctx.lineWidth = 1.5;
+                for (let i = 1; i <= shellCount; i++) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, i * 22 + 18, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+                ctx.setLineDash([]);
+
+                ctx.beginPath();
+                const coreRad = (this.isIon && this.isMetal) ? 18 : 22;
+                ctx.arc(this.x, this.y, coreRad, 0, Math.PI * 2);
+                ctx.fillStyle = this.data.color;
+                ctx.fill();
+                ctx.strokeStyle = '#334155';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                ctx.fillStyle = '#1e293b';
+                ctx.textAlign = 'center';
+                ctx.font = 'bold 16px Arial';
+                const metrics = ctx.measureText(this.type);
+                ctx.fillText(this.type, this.x - (this.isIon ? 5 : 0), this.y + 6);
+
+                if (this.isIon) {
+                    const valenceCount = this.data.shells[this.data.shells.length - 1];
+                    let chargeText = "";
+                    if (this.isMetal) {
+                        chargeText = valenceCount > 1 ? valenceCount + "+" : "+";
+                    } else {
+                        const needed = 8 - valenceCount;
+                        chargeText = needed > 1 ? needed + "-" : "-";
+                    }
+                    ctx.font = 'bold 11px Arial';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(chargeText, this.x + (metrics.width/2) - 3, this.y - 2);
+                }
+
+                this.electrons.forEach(e => e.draw());
+            }
+        }
+
+        function setupCompound() {
+            atoms = [];
+            transferComplete = false;
+            const comp = COMPOUNDS[compoundSelect.value];
+            comp.metals.forEach(m => atoms.push(new Atom(m.x, m.y, m.type, true)));
+            comp.nonmetals.forEach(nm => atoms.push(new Atom(nm.x, nm.y, nm.type, false)));
+            isIonizing = false;
+            ionizeBtn.disabled = false;
+            stateLabel.innerText = "Neutral Atoms";
+            stateLabel.className = "text-sm font-bold text-sky-700 bg-white p-3 border border-sky-200 rounded-lg text-center shadow-sm";
+        }
+
+        function triggerIonization() {
+            if (isIonizing) return;
+            isIonizing = true;
+            ionizeBtn.disabled = true;
+            stateLabel.innerText = "Transferring Electrons...";
+            stateLabel.className = "text-sm font-bold text-orange-600 bg-white p-3 border border-orange-200 rounded-lg text-center shadow-sm";
+
+            const metals = atoms.filter(a => a.isMetal);
+            const nonmetals = atoms.filter(a => !a.isMetal);
+
+            let eIdx = 0;
+            metals.forEach(m => {
+                const valenceElectrons = m.electrons.filter(e => e.shellIndex === m.currentShells.length);
+                valenceElectrons.forEach((ve) => {
+                    ve.isTransferring = true;
+                    const target = nonmetals[eIdx % nonmetals.length];
+                    ve.targetAtom = target;
+                    ve.targetAngle = Math.random() * Math.PI * 2; 
+                    eIdx++;
+                });
+            });
+        }
+
+        function handleDragging() {
+            if (draggedAtom) {
+                draggedAtom.x = mousePos.x;
+                draggedAtom.y = mousePos.y;
+                draggedAtom.relX = draggedAtom.x / canvas.width;
+                draggedAtom.relY = draggedAtom.y / canvas.height;
+                draggedAtom.vx = 0;
+                draggedAtom.vy = 0;
+            }
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            handleDragging();
+
+            const step = 0.015;
+            let finishedTransfer = true;
+
+            atoms.forEach(a => {
+                a.draw();
+                a.electrons.forEach(e => {
+                    if (e.isTransferring) {
+                        finishedTransfer = false;
+                        e.progress += step;
+                        if (e.progress >= 1) {
+                            e.progress = 1;
+                            e.isTransferring = false;
+                            e.atom.electrons = e.atom.electrons.filter(el => el !== e);
+                            e.atom = e.targetAtom;
+                            e.shellIndex = e.targetAtom.currentShells.length;
+                            e.targetAtom.electrons.push(e);
+                            e.targetAtom = null;
+                            e.atom.rebalanceElectrons();
+                        }
+                    }
+                });
+            });
+
+            if (isIonizing && finishedTransfer) {
+                if (!transferComplete) {
+                    transferComplete = true;
+                    atoms.forEach(a => { a.isIon = true; a.rebalanceElectrons(); });
+                }
+
+                const attractionForce = 0.0012;
+                const damping = 0.8; 
+                let totalMovement = 0;
+                
+                for (let i = 0; i < atoms.length; i++) {
+                    for (let j = i + 1; j < atoms.length; j++) {
+                        const a = atoms[i];
+                        const b = atoms[j];
+                        const dx = b.x - a.x;
+                        const dy = b.y - a.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        const minDist = a.getRadius() + b.getRadius();
+                        const margin = 2;
+
+                        if (a.isMetal !== b.isMetal) { 
+                            if (dist > minDist + margin && (draggedAtom !== a && draggedAtom !== b)) {
+                                const fx = (dx / dist) * attractionForce;
+                                const fy = (dy / dist) * attractionForce;
+                                a.vx += fx; a.vy += fy;
+                                b.vx -= fx; b.vy -= fy;
+                            }
+                        }
+
+                        if (dist < minDist) {
+                            const overlap = minDist - dist;
+                            const nx = dx / (dist || 1);
+                            const ny = dy / (dist || 1);
+                            if (draggedAtom === a) {
+                                b.relX += (nx * overlap) / canvas.width;
+                                b.relY += (ny * overlap) / canvas.height;
+                            } else if (draggedAtom === b) {
+                                a.relX -= (nx * overlap) / canvas.width;
+                                a.relY -= (ny * overlap) / canvas.height;
+                            } else {
+                                a.relX -= (nx * overlap * 0.5) / canvas.width;
+                                a.relY -= (ny * overlap * 0.5) / canvas.height;
+                                b.relX += (nx * overlap * 0.5) / canvas.width;
+                                b.relY += (ny * overlap * 0.5) / canvas.height;
+                            }
+                            a.vx *= 0.4; a.vy *= 0.4;
+                            b.vx *= 0.4; b.vy *= 0.4;
+                        }
+                    }
+                }
+
+                atoms.forEach(a => {
+                    if (draggedAtom !== a) {
+                        a.relX += a.vx;
+                        a.relY += a.vy;
+                        a.vx *= damping;
+                        a.vy *= damping;
+                        totalMovement += Math.abs(a.vx) + Math.abs(a.vy);
+                    }
+                });
+
+                if (draggedAtom) {
+                    stateLabel.innerText = "Interacting...";
+                    stateLabel.className = "text-sm font-bold text-purple-600 bg-white p-3 border border-purple-200 rounded-lg text-center shadow-sm";
+                } else if (totalMovement < 0.00004) {
+                    stateLabel.innerText = "Stable Ionic Bond";
+                    stateLabel.className = "text-sm font-bold text-green-600 bg-white p-3 border border-green-200 rounded-lg text-center shadow-sm";
+                } else {
+                    stateLabel.innerText = "Attracting Ions...";
+                    stateLabel.className = "text-sm font-bold text-orange-500 bg-white p-3 border border-orange-100 rounded-lg text-center shadow-sm";
+                }
+            }
+            requestAnimationFrame(loop);
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const mx = (e.clientX - rect.left) * scaleX;
+            const my = (e.clientY - rect.top) * scaleY;
+            for (let i = atoms.length - 1; i >= 0; i--) {
+                const a = atoms[i];
+                const dx = mx - a.x;
+                const dy = my - a.y;
+                if (Math.sqrt(dx * dx + dy * dy) < a.hitRadius) {
+                    draggedAtom = a;
+                    break;
+                }
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            mousePos.x = (e.clientX - rect.left) * scaleX;
+            mousePos.y = (e.clientY - rect.top) * scaleY;
+        });
+
+        window.addEventListener('mouseup', () => draggedAtom = null);
+
+        function resize() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        }
+
+        window.addEventListener('resize', resize);
+        compoundSelect.onchange = setupCompound;
+        ionizeBtn.onclick = triggerIonization;
+        resetBtn.onclick = setupCompound;
+
+        resize();
+        setupCompound();
+        loop();
+    </script>
+</body>
+</html>
